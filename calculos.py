@@ -1,4 +1,7 @@
 import math
+from colorama import Fore, Back, Style, init
+
+init(autoreset=True)
 
 def calcular_tabuada(numero, limite=10):
 
@@ -31,18 +34,45 @@ def calcular_fatorial(numero):
             resultado *= i
         return resultado
 
+def print_titulo(texto):
+
+    print(f"\n{Fore.CYAN}{Back.BLUE}{'='*60}{Style.RESET_ALL}")
+    print(f"{Fore.WHITE}{Back.BLUE}{texto:^60}{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}{Back.BLUE}{'='*60}{Style.RESET_ALL}")
+
+def print_subtitulo(texto):
+
+    print(f"\n{Fore.YELLOW}{Style.BRIGHT}➤ {texto}{Style.RESET_ALL}")
+
+def print_sucesso(texto):
+
+    print(f"{Fore.GREEN}✓ {texto}{Style.RESET_ALL}")
+
+def print_erro(texto):
+
+    print(f"{Fore.RED}✗ {texto}{Style.RESET_ALL}")
+
+def print_resultado(texto, valor):
+
+    print(f"{Fore.MAGENTA}{Style.BRIGHT}{texto}: {Fore.WHITE}{Back.MAGENTA} {valor} {Style.RESET_ALL}")
+
 def exibir_menu():
 
-    print("\n" + "="*50)
-    print("SISTEMA DE CÁLCULOS")
-    print("="*50)
-    print("1. Calcular Tabuada")
-    print("2. Calcular Área de Terreno")
-    print("3. Calcular Área de Círculo")
-    print("4. Calcular Potência")
-    print("5. Calcular Fatorial")
-    print("6. Sair")
-    print("="*50)
+    print_titulo("SISTEMA DE CÁLCULOS")
+    
+    opcoes = [
+        "1. Calcular Tabuada",
+        "2. Calcular Área de Terreno",
+        "3. Calcular Área de Círculo",
+        "4. Calcular Potência",
+        "5. Calcular Fatorial",
+        "6. Sair"
+    ]
+    
+    for opcao in opcoes:
+        print(f"{Fore.CYAN}{Style.BRIGHT}   {opcao}{Style.RESET_ALL}")
+    
+    print(f"{Fore.CYAN}{Back.BLUE}{'='*60}{Style.RESET_ALL}")
 
 def main():
 
@@ -50,49 +80,63 @@ def main():
         exibir_menu()
         
         try:
-            opcao = int(input("Digite a opção desejada: "))
+            opcao = input(f"\n{Fore.YELLOW}➤ Digite a opção desejada: {Style.RESET_ALL}")
             
-            if opcao == 1:
-                numero = int(input("Digite o número para a tabuada: "))
-                limite = int(input("Digite o limite (padrão 10): ") or 10)
+            if opcao == "1":
+                print_subtitulo("CÁLCULO DE TABUADA")
+                numero = int(input(f"{Fore.WHITE}Digite o número para a tabuada: {Style.RESET_ALL}"))
+                limite = input(f"{Fore.WHITE}Digite o limite (padrão 10): {Style.RESET_ALL}")
+                limite = int(limite) if limite else 10
+                
                 resultados = calcular_tabuada(numero, limite)
-                print(f"\nTabuada do {numero}:")
+                print_sucesso(f"Tabuada do {numero}:")
                 for resultado in resultados:
-                    print(resultado)
+                    print(f"{Fore.BLUE}   {resultado}{Style.RESET_ALL}")
                     
-            elif opcao == 2:
-                largura = float(input("Digite a largura do terreno: "))
-                comprimento = float(input("Digite o comprimento do terreno: "))
+            elif opcao == "2":
+                print_subtitulo("CÁLCULO DE ÁREA DE TERRENO")
+                largura = float(input(f"{Fore.WHITE}Digite a largura do terreno: {Style.RESET_ALL}"))
+                comprimento = float(input(f"{Fore.WHITE}Digite o comprimento do terreno: {Style.RESET_ALL}"))
+                
                 area = calcular_area_terreno(largura, comprimento)
-                print(f"\nÁrea do terreno: {area:.2f}m²")
+                print_resultado("Área do terreno", f"{area:.2f}m²")
                 
-            elif opcao == 3:
-                raio = float(input("Digite o raio do círculo: "))
+            elif opcao == "3":
+                print_subtitulo("CÁLCULO DE ÁREA DE CÍRCULO")
+                raio = float(input(f"{Fore.WHITE}Digite o raio do círculo: {Style.RESET_ALL}"))
+                
                 area = calcular_area_circulo(raio)
-                print(f"\nÁrea do círculo: {area:.2f}")
+                print_resultado("Área do círculo", f"{area:.2f}")
                 
-            elif opcao == 4:
-                base = float(input("Digite a base: "))
-                expoente = float(input("Digite o expoente: "))
+            elif opcao == "4":
+                print_subtitulo("CÁLCULO DE POTÊNCIA")
+                base = float(input(f"{Fore.WHITE}Digite a base: {Style.RESET_ALL}"))
+                expoente = float(input(f"{Fore.WHITE}Digite o expoente: {Style.RESET_ALL}"))
+                
                 resultado = calcular_potencia(base, expoente)
-                print(f"\n{base}^{expoente} = {resultado}")
+                print_resultado(f"{base}^{expoente}", resultado)
                 
-            elif opcao == 5:
-                numero = int(input("Digite o número para calcular o fatorial: "))
+            elif opcao == "5":
+                print_subtitulo("CÁLCULO DE FATORIAL")
+                numero = int(input(f"{Fore.WHITE}Digite o número para calcular o fatorial: {Style.RESET_ALL}"))
+                
                 resultado = calcular_fatorial(numero)
-                print(f"\n{numero}! = {resultado}")
+                print_resultado(f"{numero}!", resultado)
                 
-            elif opcao == 6:
-                print("Saindo do sistema...")
+            elif opcao == "6":
+                print_sucesso("Saindo do sistema... Até logo!")
                 break
                 
             else:
-                print("Opção inválida! Tente novamente.")
+                print_erro("Opção inválida! Tente novamente.")
+                
+            input(f"\n{Fore.WHITE}Pressione Enter para continuar...{Style.RESET_ALL}")
+            print("\n" * 50)
                 
         except ValueError:
-            print("Erro: Digite um valor numérico válido!")
+            print_erro("Digite um valor numérico válido!")
         except Exception as e:
-            print(f"Erro inesperado: {e}")
+            print_erro(f"Erro inesperado: {e}")
 
 if __name__ == '__main__':
     main()
