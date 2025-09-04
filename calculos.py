@@ -1,39 +1,26 @@
-"""
-Sistema Principal - Módulo de Cálculos
-"""
 import math
 
 def calcular_tabuada(numero, limite=10):
-    """
-    Calcula a tabuada de um número
-    """
+
     resultados = []
     for i in range(1, limite + 1):
         resultados.append(f"{numero} x {i} = {numero * i}")
     return resultados
 
 def calcular_area_terreno(largura, comprimento):
-    """
-    Calcula a área de um terreno retangular
-    """
+
     return largura * comprimento
 
 def calcular_area_circulo(raio):
-    """
-    Calcula a área de um círculo
-    """
+
     return math.pi * (raio ** 2)
 
 def calcular_potencia(base, expoente):
-    """
-    Calcula a potência de um número
-    """
+
     return base ** expoente
 
 def calcular_fatorial(numero):
-    """
-    Calcula o fatorial de um número
-    """
+
     if numero < 0:
         return "Erro: Fatorial não definido para números negativos"
     elif numero == 0 or numero == 1:
@@ -45,9 +32,7 @@ def calcular_fatorial(numero):
         return resultado
 
 def exibir_menu():
-    """
-    Exibe o menu de opções
-    """
+
     print("\n" + "="*50)
     print("SISTEMA DE CÁLCULOS")
     print("="*50)
@@ -60,9 +45,7 @@ def exibir_menu():
     print("="*50)
 
 def main():
-    """
-    Função principal do sistema
-    """
+
     while True:
         exibir_menu()
         
@@ -111,6 +94,5 @@ def main():
         except Exception as e:
             print(f"Erro inesperado: {e}")
 
-# Este bloco garante que o código só será executado quando o arquivo for rodado diretamente
 if __name__ == '__main__':
     main()
